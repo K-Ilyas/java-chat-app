@@ -70,6 +70,9 @@ En tant qu'application desktop, notre interface sera conçue de manière à êtr
 # class diagram
 ![Tp_chat drawio](https://github.com/K-Ilyas/java-chat-app/assets/61426347/8bb6bcee-43cf-49e9-8250-61cb47d06361)
 
+# mockup
+
+[wireframe.pdf](https://github.com/K-Ilyas/java-chat-app/files/14418175/wireframe.pdf)
 
 ## License
 
