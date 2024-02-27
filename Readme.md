@@ -71,6 +71,10 @@ En tant qu'application desktop, notre interface sera conçue de manière à êtr
 
 ![JAVA_CHAT_CLASS_UML drawio](https://github.com/K-Ilyas/java-chat-app/assets/61426347/94c3bd5f-b678-4483-802a-e755005852f6)
 
+# Use Case 
+
+<img width="476" alt="image" src="https://github.com/K-Ilyas/java-chat-app/assets/61426347/07055bf7-abed-46db-b03f-f98ec8e9c25e">
+
 # Technical implementation 
 
 ### ExecutorService
