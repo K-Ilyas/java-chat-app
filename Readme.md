@@ -27,9 +27,14 @@ This is a simple chat application built using Java and JavaFX.
 ![Login Screen](screenshots/login.png)
 ![Chat Screen](screenshots/chat.png) -->
 
+
 <!-- ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request. -->
+
+### class diagram
+![Tp_chat drawio](https://github.com/K-Ilyas/java-chat-app/assets/61426347/8bb6bcee-43cf-49e9-8250-61cb47d06361)
+
 
 ## License
 
