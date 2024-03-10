@@ -97,6 +97,11 @@ automatiquement.
    - Crée un seul Thread pour une exécution séquentielle de plusieur tâches.
 ![executor](https://github.com/K-Ilyas/java-chat-app/assets/61426347/37136685-5e66-4554-9caa-a43e98a690af)
 
+
+# MCD
+![image](https://github.com/K-Ilyas/java-chat-app/assets/124268899/3e32b81c-4d66-4b61-b5be-d320b7bf785f)
+
+
 # mockup
 
 [wireframe.pdf](https://github.com/K-Ilyas/java-chat-app/files/14418175/wireframe.pdf)
