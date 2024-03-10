@@ -68,8 +68,38 @@ Notre choix de technologies reflète notre engagement envers des solutions robus
 
 En tant qu'application desktop, notre interface sera conçue de manière à être à la fois fonctionnelle et esthétiquement plaisante. Des boutons intuitifs faciliteront la navigation, tandis que les zones de texte aux saisies du clavier, créant ainsi une expérience utilisateur immersive et agréable. Nous nous engageons à fournir une interface interactive.
 # class diagram
-![Tp_chat drawio](https://github.com/K-Ilyas/java-chat-app/assets/61426347/8bb6bcee-43cf-49e9-8250-61cb47d06361)
 
+![JAVA_CHAT_CLASS_UML drawio](https://github.com/K-Ilyas/java-chat-app/assets/61426347/94c3bd5f-b678-4483-802a-e755005852f6)
+
+# Use Case 
+
+<img width="476" alt="image" src="https://github.com/K-Ilyas/java-chat-app/assets/61426347/07055bf7-abed-46db-b03f-f98ec8e9c25e">
+
+# Technical implementation 
+
+### ExecutorService
+
+- ExecutorService crees un ensemble de Threads
+- Envoyer des taches (runnable ou callable) à l’ExecutorService .
+- Recuperer les resultats des tâches sous forme de Future.
+###### Implementation 
+
+ La classe Executors permet créer un ExecutorService avec differents 
+types de Thread Pool.
+ - Executors.newFixedThreadPool(int n)
+   - Créer un ExecutorService avec un nombre fixe n de Threads et les garde toujour actives
+   - S'ils sont tous occupés les tâches seront placé dans une file d’attente
+ - Executors.newCachedThreadPool()
+   - Pour une nouvelle tâche Il utilise un Threads disponible sinon il crée un nouveau.
+   - Si un Thread reste sans tache pour une période(une minute) il sera supprimé 
+automatiquement.
+ - Executors.newSingleThreadExecutor()
+   - Crée un seul Thread pour une exécution séquentielle de plusieur tâches.
+![executor](https://github.com/K-Ilyas/java-chat-app/assets/61426347/37136685-5e66-4554-9caa-a43e98a690af)
+
+# mockup
+
+[wireframe.pdf](https://github.com/K-Ilyas/java-chat-app/files/14418175/wireframe.pdf)
 
 ## License
 
