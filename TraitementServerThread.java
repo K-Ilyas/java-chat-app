@@ -48,7 +48,7 @@ public class TraitementServerThread implements Runnable {
                         }
                         if (userInformation != null) {
 
-                            if (this.socketServer.foundLogIn(userInformation, this.client)) {
+                            if (this.socketServer.isLogedInOrInit(userInformation, this.client)) {
                                 dos.writeInt(1);
                                 dos.writeUTF("SERVER : YOUR CONNEXION HAS ESTABLISHED SUCCESFULLY");
                                 dos.flush();
@@ -163,7 +163,7 @@ public class TraitementServerThread implements Runnable {
 
                     if (!header.equals("") && !header.equals("*")) {
 
-                        Socket reciver = this.socketServer.foundUser(header);
+                        Socket reciver = this.socketServer.findUserSocket(header);
                         System.out.println(reciver);
                         if (reciver != null) {
 

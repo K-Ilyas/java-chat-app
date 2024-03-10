@@ -31,8 +31,9 @@ public class SocketServer {
         }
     }
 
-    public boolean foundLogIn(UserInformation user, Socket soc) {
-
+    public boolean isLogedInOrInit(UserInformation user, Socket soc) {
+    
+        
         if (!this.con_table.isEmpty()) {
 
             Enumeration<UserInformation> list = this.con_table.keys();
@@ -51,7 +52,7 @@ public class SocketServer {
             return false;
     }
 
-    public Socket foundUser(String pseudo) {
+    public Socket findUserSocket(String pseudo) {
 
         if (!this.con_table.isEmpty()) {
 
@@ -67,7 +68,7 @@ public class SocketServer {
         return null;
     }
 
-    public boolean registration(UserInformation user) {
+    public boolean isUserExist(UserInformation user) {
 
         if (!this.con_table.isEmpty()) {
 
@@ -85,7 +86,7 @@ public class SocketServer {
     }
 
     public boolean addUser(UserInformation user, Socket soc) {
-        if (!registration(user)) {
+        if (!isUserExist(user)) {
             this.con_table.put(user, soc);
 
             System.out.println(" NEW SING IN :  " + "[" + user + "] \t" + soc);
@@ -104,7 +105,7 @@ public class SocketServer {
             while (list.hasMoreElements()) {
 
                 if (list.nextElement().compareTo(user) == 0) {
-                    this.con_table.put(user, (new Socket()));
+                    this.con_table.put(user, null);
                     return true;
                 }
             }
