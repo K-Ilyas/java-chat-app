@@ -31,42 +31,59 @@ This is a simple chat application built using Java and JavaFX.
 <!-- ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request. -->
-# L'équipe
+# Team
 
 * Ahmed Guetti
 * Kritet Ilyas
 * Boussoualef Mohamed Amine
-## L'idée de l'application
+## Our application core idea
+### General vision 
 
-### Vision générale
+The main objectif of our application is to simplify the communication  between multiple users.
+we have the intetion to create an effecente and "just work" platform, due to an instance connection to answer the collaboration needs.
 
-L'objectif principal de notre application est de faciliter la communication entre utilisateurs, en créant une plateforme conviviale et efficace. Nous visons à établir des connexions instantanées pour répondre aux besoins de collaboration dans un monde toujours plus connecté.
-#### Première itération
 
-Dans cette première phase, nous mettons en œuvre un chat simple entre plusieurs utilisateurs. L'utilisation de textes bruts, associée à la puissance des sockets, garantira une connexion robuste et rapide. Les échanges entre utilisateurs seront ainsi instantanés.
+#### First iteration V0
 
-#### Deuxième itération
+In this first phase, we made a simple text chat between multiple users on the terminal as a CLI, using the power of socket, we garentide a robust and fast performence, the connextion can be between two users or a broardcast to all connected users.
+
+Moreover we had made a simple authontification precess, even if it still not secure enough
+
+#### Second iteration V1
 
 Poursuivant notre engagement envers l'amélioration continue, la deuxième itération introduira des fonctionnalités plus avancées. Nous créerons des salons(rooms) pour permettre aux utilisateurs de regrouper des discussions spécifiques. 
-#### Troisième itération
 
-Nous intégrerons la possibilité d'envoyer des fichiers, rendant la plateforme plus polyvalente et adaptée à une variété de besoins de communication ( media repository ).
+As a next iteration in our project, wew are going to add multiple new funtionnalaties, as creating rooms and let the users to chose the room to be in. Moreover, saving all the messages and information in a database (DAO)
 
-### Quatrième itération 
+#### Third iteration V2
 
-Ajouter une nouvelle fonctionnalité qui permet de creer des stories et répondre sur un message
-## Technologies
+We are going to add the posibilite to send a file, making the platforme more usable as a collaboration platform.
 
-Notre choix de technologies reflète notre engagement envers des solutions robustes et évolutives pour offrir une expérience utilisateur optimale.
+In this step we are going to add the graphical interface, that addapte to all the current functionality
 
-- Java servira de base solide pour la logique applicative.
+### Fourth iteration V3
+Add multiple functionnality to finalise the project, for exemple:
+- Reaction to messages
+- change profile information
+- answer a specifique message
 
-- JavaFX sera utilisé pour créer une interface utilisateur attrayante et conviviale.
 
-- Les sockets garantiront une connectivité fiable, essentielle pour des échanges en temps réel.
-# Type d'interface
+## Technologies Stack
+Our choise of technologies was made to garante a fluid developing process and an optimised result, keeping in mind the end user expirience 
+
+- Java: we chose Java for it's popularity and performance while maintaining a solid developing experince  
+
+- JavaFX: As one of the most famous Desktop application framework. helping us to keep the UI as clean and straight forward as possible
+
+- mysql: our database of choise, for our application 
+# Interface
 
 En tant qu'application desktop, notre interface sera conçue de manière à être à la fois fonctionnelle et esthétiquement plaisante. Des boutons intuitifs faciliteront la navigation, tandis que les zones de texte aux saisies du clavier, créant ainsi une expérience utilisateur immersive et agréable. Nous nous engageons à fournir une interface interactive.
+
+Althought our application is a Desktop application, we are going to try making it 
+functional as well as aesthetically plesent when it comes to the UI,
+
+
 # class diagram
 
 ![JAVA_CHAT_CLASS_UML drawio](https://github.com/K-Ilyas/java-chat-app/assets/61426347/94c3bd5f-b678-4483-802a-e755005852f6)
