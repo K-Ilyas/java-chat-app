@@ -96,22 +96,23 @@ functional as well as aesthetically plesent when it comes to the UI,
 
 ### ExecutorService
 
-- ExecutorService crees un ensemble de Threads
-- Envoyer des taches (runnable ou callable) à l’ExecutorService .
-- Recuperer les resultats des tâches sous forme de Future.
+- ExecutorService create a pool of Threads
+- send tasks (runnable or callable) to ExecutorService .
+- get the result of the tasks in the form of Future.
 ###### Implementation 
 
- La classe Executors permet créer un ExecutorService avec differents 
-types de Thread Pool.
+ The Executors class allows you to create an ExecutorService with different
+Thread Pool types.
  - Executors.newFixedThreadPool(int n)
-   - Créer un ExecutorService avec un nombre fixe n de Threads et les garde toujour actives
-   - S'ils sont tous occupés les tâches seront placé dans une file d’attente
+   - Create an ExecutorService with a fixed number n of Threads and keep them always active
+   - If they are all busy the tasks will be placed in a queue
  - Executors.newCachedThreadPool()
-   - Pour une nouvelle tâche Il utilise un Threads disponible sinon il crée un nouveau.
-   - Si un Thread reste sans tache pour une période(une minute) il sera supprimé 
-automatiquement.
+   - For a new task It uses an available Threads otherwise it creates a new one.
+   - If a Thread remains unblemished for a period (one minute) it will be deleted
+automatically.
  - Executors.newSingleThreadExecutor()
-   - Crée un seul Thread pour une exécution séquentielle de plusieur tâches.
+   - Creates a single Thread for sequential execution of several tasks.
+
 ![executor](https://github.com/K-Ilyas/java-chat-app/assets/61426347/37136685-5e66-4554-9caa-a43e98a690af)
 
 
