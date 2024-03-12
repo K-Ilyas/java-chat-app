@@ -90,7 +90,7 @@ functional as well as aesthetically plesent when it comes to the UI,
 
 # Use Case 
 
-<img width="476" alt="image" src="https://github.com/K-Ilyas/java-chat-app/assets/61426347/07055bf7-abed-46db-b03f-f98ec8e9c25e">
+<img width="673" alt="image" src="https://github.com/K-Ilyas/java-chat-app/assets/124268899/1d81f5d8-cc94-44bd-8543-ede042173706">
 
 # Technical implementation 
 
