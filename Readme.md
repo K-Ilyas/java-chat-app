@@ -35,6 +35,7 @@ This is a simple chat application built using Java and JavaFX.
     - [x] Create MCD
     - [x] Write the Script of the Database
     - [ ] JDBC connect the database to source code
+    - [x] Add the findAall user in UserDAO nedded in getting the friend list (AG)
 - [ ] UI
     - [ ] Working protype
     - [ ] Styled interface
