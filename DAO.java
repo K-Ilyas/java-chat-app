@@ -1,8 +1,9 @@
+import java.sql.Connection;
 
 public abstract class DAO<T> {
-    protected MySQLConnectSingleton connect = null;
+    protected Connection connect = null;
 
-    public DAO(MySQLConnectSingleton conn) {
+    public DAO(Connection conn) {
         this.connect = conn;
     }
 
@@ -36,5 +37,5 @@ public abstract class DAO<T> {
      * @param id
      * @return T
      */
-    public abstract T find(int id);
+    public abstract T find(String uuid);
 }
