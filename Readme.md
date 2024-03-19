@@ -31,70 +31,88 @@ This is a simple chat application built using Java and JavaFX.
 <!-- ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request. -->
-# L'équipe
+# Team
 
 * Ahmed Guetti
 * Kritet Ilyas
 * Boussoualef Mohamed Amine
-## L'idée de l'application
+## Our application core idea
+### General vision 
 
-### Vision générale
+The main objectif of our application is to simplify the communication  between multiple users.
+we have the intetion to create an effecente and "just work" platform, due to an instance connection to answer the collaboration needs.
 
-L'objectif principal de notre application est de faciliter la communication entre utilisateurs, en créant une plateforme conviviale et efficace. Nous visons à établir des connexions instantanées pour répondre aux besoins de collaboration dans un monde toujours plus connecté.
-#### Première itération
 
-Dans cette première phase, nous mettons en œuvre un chat simple entre plusieurs utilisateurs. L'utilisation de textes bruts, associée à la puissance des sockets, garantira une connexion robuste et rapide. Les échanges entre utilisateurs seront ainsi instantanés.
+#### First iteration V0
 
-#### Deuxième itération
+In this first phase, we made a simple text chat between multiple users on the terminal as a CLI, using the power of socket, we garentide a robust and fast performence, the connextion can be between two users or a broardcast to all connected users.
+
+Moreover we had made a simple authontification precess, even if it still not secure enough
+
+#### Second iteration V1
 
 Poursuivant notre engagement envers l'amélioration continue, la deuxième itération introduira des fonctionnalités plus avancées. Nous créerons des salons(rooms) pour permettre aux utilisateurs de regrouper des discussions spécifiques. 
-#### Troisième itération
 
-Nous intégrerons la possibilité d'envoyer des fichiers, rendant la plateforme plus polyvalente et adaptée à une variété de besoins de communication ( media repository ).
+As a next iteration in our project, wew are going to add multiple new funtionnalaties, as creating rooms and let the users to chose the room to be in. Moreover, saving all the messages and information in a database (DAO)
 
-### Quatrième itération 
+#### Third iteration V2
 
-Ajouter une nouvelle fonctionnalité qui permet de creer des stories et répondre sur un message
-## Technologies
+We are going to add the posibilite to send a file, making the platforme more usable as a collaboration platform.
 
-Notre choix de technologies reflète notre engagement envers des solutions robustes et évolutives pour offrir une expérience utilisateur optimale.
+In this step we are going to add the graphical interface, that addapte to all the current functionality
 
-- Java servira de base solide pour la logique applicative.
+### Fourth iteration V3
+Add multiple functionnality to finalise the project, for exemple:
+- Reaction to messages
+- change profile information
+- answer a specifique message
 
-- JavaFX sera utilisé pour créer une interface utilisateur attrayante et conviviale.
 
-- Les sockets garantiront une connectivité fiable, essentielle pour des échanges en temps réel.
-# Type d'interface
+## Technologies Stack
+Our choise of technologies was made to garante a fluid developing process and an optimised result, keeping in mind the end user expirience 
+
+- Java: we chose Java for it's popularity and performance while maintaining a solid developing experince  
+
+- JavaFX: As one of the most famous Desktop application framework. helping us to keep the UI as clean and straight forward as possible
+
+- mysql: our database of choise, for our application 
+# Interface
 
 En tant qu'application desktop, notre interface sera conçue de manière à être à la fois fonctionnelle et esthétiquement plaisante. Des boutons intuitifs faciliteront la navigation, tandis que les zones de texte aux saisies du clavier, créant ainsi une expérience utilisateur immersive et agréable. Nous nous engageons à fournir une interface interactive.
+
+Althought our application is a Desktop application, we are going to try making it 
+functional as well as aesthetically plesent when it comes to the UI,
+
+
 # class diagram
 
 ![JAVA_CHAT_CLASS_UML drawio](https://github.com/K-Ilyas/java-chat-app/assets/61426347/94c3bd5f-b678-4483-802a-e755005852f6)
 
 # Use Case 
 
-<img width="476" alt="image" src="https://github.com/K-Ilyas/java-chat-app/assets/61426347/07055bf7-abed-46db-b03f-f98ec8e9c25e">
+<img width="673" alt="image" src="https://github.com/K-Ilyas/java-chat-app/assets/124268899/1d81f5d8-cc94-44bd-8543-ede042173706">
 
 # Technical implementation 
 
 ### ExecutorService
 
-- ExecutorService crees un ensemble de Threads
-- Envoyer des taches (runnable ou callable) à l’ExecutorService .
-- Recuperer les resultats des tâches sous forme de Future.
+- ExecutorService create a pool of Threads
+- send tasks (runnable or callable) to ExecutorService .
+- get the result of the tasks in the form of Future.
 ###### Implementation 
 
- La classe Executors permet créer un ExecutorService avec differents 
-types de Thread Pool.
+ The Executors class allows you to create an ExecutorService with different
+Thread Pool types.
  - Executors.newFixedThreadPool(int n)
-   - Créer un ExecutorService avec un nombre fixe n de Threads et les garde toujour actives
-   - S'ils sont tous occupés les tâches seront placé dans une file d’attente
+   - Create an ExecutorService with a fixed number n of Threads and keep them always active
+   - If they are all busy the tasks will be placed in a queue
  - Executors.newCachedThreadPool()
-   - Pour une nouvelle tâche Il utilise un Threads disponible sinon il crée un nouveau.
-   - Si un Thread reste sans tache pour une période(une minute) il sera supprimé 
-automatiquement.
+   - For a new task It uses an available Threads otherwise it creates a new one.
+   - If a Thread remains unblemished for a period (one minute) it will be deleted
+automatically.
  - Executors.newSingleThreadExecutor()
-   - Crée un seul Thread pour une exécution séquentielle de plusieur tâches.
+   - Creates a single Thread for sequential execution of several tasks.
+
 ![executor](https://github.com/K-Ilyas/java-chat-app/assets/61426347/37136685-5e66-4554-9caa-a43e98a690af)
 
 
