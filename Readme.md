@@ -117,8 +117,7 @@ automatically.
 
 
 # MCD
-![image](https://github.com/K-Ilyas/java-chat-app/assets/124268899/3e32b81c-4d66-4b61-b5be-d320b7bf785f)
-
+![mcd_workbeanch](https://github.com/K-Ilyas/java-chat-app/assets/61426347/55b95d86-b583-4f2e-a6b1-90b3aa19c897)
 
 # mockup
 
