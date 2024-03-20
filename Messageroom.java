@@ -1,8 +1,7 @@
 import java.io.Serializable;
-import java.lang.Comparable;
 import java.sql.Date;
 
-public class Messageroom implements Comparable<Messageroom>, Serializable{
+public class Messageroom implements  Serializable{
 
   private int message_id;
   private String uuid_room;
@@ -80,15 +79,5 @@ public void setDate(Date date){
 
 
 
-
-
-
-
-
-  @Override
-  public int compareTo(Messageroom o) {
-    
-    throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
-  }
 
 }

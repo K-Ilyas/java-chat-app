@@ -1,7 +1,7 @@
 import java.io.Serializable;
-import java.lang.Comparable;
 
-public class Room implements Comparable<Room>, Serializable {
+
+public class Room implements  Serializable {
 
   private String uuid_room;
   private String roomname;
@@ -43,9 +43,6 @@ public class Room implements Comparable<Room>, Serializable {
     this.image = image;
   }
   
-  @Override
-  public int compareTo(Room o) {
-    throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
-  }
+
   
 }

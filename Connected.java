@@ -1,7 +1,7 @@
 import java.io.Serializable;
-import java.lang.Comparable;
 
-public class Connected implements Comparable<Connected>, Serializable {
+
+public class Connected implements  Serializable {
 
   private String uuid_user;
   private String uuid_room;
@@ -32,12 +32,5 @@ public class Connected implements Comparable<Connected>, Serializable {
     this.uuid_room = uuid_room;
   }
 
-
-
-
-  @Override
-  public int compareTo(Connected o) {
-    throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
-  }
   
 }
