@@ -36,10 +36,9 @@ public class UserInformation implements Comparable<UserInformation>, Serializabl
     }
 
     public int compareTo(UserInformation o) {
-
         if (o.getClass().equals(UserInformation.class)) {
             UserInformation cd = (UserInformation) o;
-            return this.pseudo.compareTo(cd.getPassword()) & this.password.compareTo(cd.getPassword());
+            return this.uuid.compareTo(cd.getUuid());
         }
         return -1;
     }

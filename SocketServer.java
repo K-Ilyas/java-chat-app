@@ -1,6 +1,7 @@
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
 import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
@@ -17,13 +18,15 @@ public class SocketServer {
     private boolean isConnected = false;
     private Hashtable<UserInformation, Socket> con_table = null;
 
+    private Connection connect = null;
+
     public SocketServer() {
         this.server = null;
         try {
             this.server = new ServerSocket(PORT_CONN);
             this.isConnected = true;
-            System.out.println("SERVER : CONNECTED");
-
+            ServerLogs.printLog("SERVER : CONNECTED");
+            this.connect = MySQLConnectSingleton.getInstance();
             this.con_table = new Hashtable<UserInformation, Socket>();
 
         } catch (IOException e) {
@@ -31,37 +34,38 @@ public class SocketServer {
         }
     }
 
+
+  
+
+
+
     public boolean isLogedInOrInit(UserInformation user, Socket soc) {
     
-        
         if (!this.con_table.isEmpty()) {
-
             Enumeration<UserInformation> list = this.con_table.keys();
-
             while (list.hasMoreElements()) {
-
                 if (list.nextElement().compareTo(user) == 0) {
                     this.con_table.put(user, soc);
                     return true;
                 }
 
             }
-
             return false;
         } else
             return false;
     }
 
-    public Socket findUserSocket(String pseudo) {
-
+    public Socket findUserSocket(String uuid) {
         if (!this.con_table.isEmpty()) {
 
             Set<Entry<UserInformation, Socket>> list = this.con_table.entrySet();
             Iterator<Entry<UserInformation, Socket>> iterator = list.iterator();
 
+
             while (iterator.hasNext()) {
                 Entry<UserInformation, Socket> user = iterator.next();
-                if (user.getKey().getPseudo().equals(pseudo))
+                System.out.println(String.format("'%s'",user.getKey().getUuid()));
+                if (String.format("'%s'",user.getKey().getUuid()).equals(String.format("'%s'", uuid)))
                     return user.getValue();
             }
         }
@@ -88,7 +92,7 @@ public class SocketServer {
     public boolean addUser(UserInformation user, Socket soc) {
         if (!isUserExist(user)) {
             this.con_table.put(user, soc);
-            System.out.println(" NEW SING IN :  " + "[" + user + "] \t" + soc);
+            ServerLogs.printLog("NEW SING IN :  " + "[" + user + "] \t" + soc);
             return true;
         }
         return false;
@@ -103,7 +107,7 @@ public class SocketServer {
             while (list.hasMoreElements()) {
 
                 if (list.nextElement().compareTo(user) == 0) {
-                    this.con_table.put(user, null);
+                    this.con_table.remove(user);
                     return true;
                 }
             }
@@ -130,12 +134,18 @@ public class SocketServer {
             }
 
         } else
-            System.out.println("THE SERER IS NOT CONNECTED !!!");
+        ServerLogs.printLog("THE SERER IS NOT CONNECTED !!!");
+
     }
 
     public Hashtable<UserInformation, Socket> getCon_table() {
         return con_table;
     }
+
+    public Connection getConnect() {
+        return connect;
+    }
+
 
     public static void main(String[] args) {
         SocketServer server = new SocketServer();

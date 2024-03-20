@@ -4,17 +4,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.Map.Entry;
+
 
 public class TraitementServerThread implements Runnable {
 
     private Socket client = null;
     private SocketServer socketServer = null;
-    
+
     public TraitementServerThread(Socket client, SocketServer socketServer) {
         this.client = client;
         this.socketServer = socketServer;
@@ -23,54 +28,54 @@ public class TraitementServerThread implements Runnable {
     public void run() {
         try (OutputStream out = this.client.getOutputStream();
                 InputStream in = this.client.getInputStream();
-
                 DataInputStream dis = new DataInputStream(in);
                 DataOutputStream dos = new DataOutputStream(out);
-                ObjectInputStream ois = new ObjectInputStream(in);) {
+                ObjectInputStream ois = new ObjectInputStream(in);
+                ObjectOutputStream oos = new ObjectOutputStream(out);) {
             int i = 0;
             boolean isTrue = true;
-
+            UserDAO user_orm = new UserDAO(this.socketServer.getConnect());
             UserInformation userInformation = null;
-
+            MessageToDAO message_orm = new MessageToDAO(this.socketServer.getConnect());
+            LinkedList<MessageTo> messages = null;
             while (isTrue) {
 
                 i = dis.readInt();
 
                 switch (i) {
                     case 1:
-                        System.out.println("SERVER : YOU CAN LOG IN");
-
+                        ServerLogs.printLog("SERVER : YOU CAN LOG IN");
                         userInformation = null;
                         try {
                             userInformation = (UserInformation) ois.readObject();
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();
                         }
+
+                        userInformation = user_orm.find(userInformation.getPseudo());
                         if (userInformation != null) {
 
-                            if (this.socketServer.isLogedInOrInit(userInformation, this.client)) {
-                                dos.writeInt(1);
-                                dos.writeUTF("SERVER : YOUR CONNEXION HAS ESTABLISHED SUCCESFULLY");
-                                dos.flush();
-                                isTrue = false;
-                            } else {
-                                dos.writeInt(0);
-                                dos.writeUTF("SERVER :YOUR PSEUDO OR PASSWORD AR RONG PLEASE RETAIT");
-                                dos.flush();
+                            if (!this.socketServer.isLogedInOrInit(userInformation, this.client)) {
+                                this.socketServer.addUser(userInformation, client);
                             }
+                            ;
+                            dos.writeInt(1);
+                            dos.writeUTF("SERVER : YOUR CONNEXION HAS ESTABLISHED SUCCESFULLY");
+                            dos.flush();
+                            isTrue = false;
+
                         } else {
                             dos.writeInt(0);
                             dos.writeUTF("SERVER :YOUR OBJECT SEND IS NULL !!!");
                             dos.flush();
-                            System.out.println("SERVER : YOU HAVE AN ERROR IN YOUR CONNECTION FAILD");
-
+                            ServerLogs.printLog("SERVER : YOU HAVE AN ERROR IN YOUR CONNECTION FAILD");
                         }
 
                         break;
                     case 2:
 
-                        System.out.println("SERVER : YOU CAN SING IN");
-                        System.out.println(dis.readUTF());
+                        ServerLogs.printLog("SERVER : YOU CAN SING IN");
+                        ServerLogs.printLog(dis.readUTF());
                         userInformation = null;
                         try {
                             userInformation = (UserInformation) ois.readObject();
@@ -81,12 +86,13 @@ public class TraitementServerThread implements Runnable {
 
                         if (userInformation != null) {
 
-                            if (this.socketServer.addUser(userInformation, this.client)) {
+                            if (user_orm.create(userInformation)) {
+                                System.out.println("user created :::" + userInformation.getUuid() );
+                                this.socketServer.addUser(userInformation, this.client);
                                 dos.writeInt(1);
                                 dos.writeUTF("SERVER : YOUR REGISTARTION HAS ESTABLISHED SUCCESFULY");
                                 dos.flush();
                                 isTrue = false;
-
                             } else {
                                 dos.writeInt(0);
                                 dos.writeUTF(
@@ -97,32 +103,49 @@ public class TraitementServerThread implements Runnable {
                             dos.writeInt(0);
                             dos.writeUTF("SERVER :YOUR OBJECT SEND IS NULL !!!");
                             dos.flush();
-                            System.out.println("SERVER : YOU HAVE AN ERROR IN YOUR CONNECTION FAILD");
-
+                            ServerLogs.printLog("SERVER : YOU HAVE AN ERROR IN YOUR CONNECTION FAILD");
                         }
-
                         break;
 
                     default:
-                        System.out.println("You have an error in your cmmande please retrait");
+                        ServerLogs.printLog("You have an error in your cmmande please retrait");
                         break;
 
                 }
 
             }
 
+            oos.writeObject(userInformation);
+            oos.flush();
+
+            LinkedList<UserInformation> amis = user_orm.findAll(userInformation.getUuid());
+            oos.writeObject(amis);
+            oos.flush();
+
+            int result = dis.readInt();
+            System.out.println(result);
+            if (result == 0) {
+                int second = dis.readInt() ;
+                messages = message_orm.findAll(userInformation.getUuid(), amis.get(second).getUuid());
+                oos.writeObject( messages == null ? new LinkedList<MessageTo>() : messages);
+                oos.flush();
+            }
+
             isTrue = true;
-            String header = "", data = "";
+            String message = "", data = "";
+
+            UserInformation friend = null;
 
             while (isTrue) {
 
-                header = dis.readUTF();
+                message = dis.readUTF();
+                System.out.println(message);
 
-
-                if (header.toUpperCase().equals("N")) {
+                if (message.toUpperCase().equals("N")) {
                     isTrue = false;
                     userInformation = null;
                     try {
+                        friend = (UserInformation) ois.readObject();
                         userInformation = (UserInformation) ois.readObject();
                     } catch (
 
@@ -132,48 +155,57 @@ public class TraitementServerThread implements Runnable {
                     if (userInformation != null) {
 
                         if (this.socketServer.logOut(userInformation)) {
+
                             dos.writeInt(0);
                             dos.writeUTF("SERVER : YOUR LOG OUT SUCCESFLY");
                             dos.flush();
-                            System.out.println("SERVER : bye bye" + userInformation + " !!!!");
+                            ServerLogs.printLog("SERVER : bye bye" + userInformation.getUuid() + " - "
+                                    + userInformation.getPseudo() + " !!!!");
                             isTrue = false;
                         } else {
                             dos.writeInt(0);
-                            dos.writeUTF("SERVER :YOUR PSEUDO IS NOT SUPORTABLE OR PASSWORD NOT STRONG PLEASE RETAIT");
+                            dos.writeUTF("SERVER :SOMETHING WENT WRONG PLEASE RETRY!!!");
                             dos.flush();
                         }
                     } else {
                         dos.writeInt(0);
-                        dos.writeUTF("SERVER :YOUR SENDED OBJECT IS NULL !!!");
+                        dos.writeUTF("SERVER : YOUR SENDED OBJECT IS NULL !!!");
                         dos.flush();
-                        System.out.println("SERVER : YOU HAVE AN ERROR, YOUR CONNECTION FAILD");
-
+                        ServerLogs.printLog("SERVER : YOU HAVE AN ERROR, YOUR CONNECTION FAILD !!");
                     }
 
                 } else {
 
-                    data = dis.readUTF();
                     try {
+                        friend = (UserInformation) ois.readObject();
                         userInformation = (UserInformation) ois.readObject();
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
 
-                    System.out.println(header);
+                    if (!message.equals("")) {
 
-                    if (!header.equals("") && !header.equals("*")) {
+                        Socket reciver = this.socketServer.findUserSocket(friend.getUuid());
 
-                        Socket reciver = this.socketServer.findUserSocket(header);
-                        System.out.println(reciver);
+                        MessageTo messageTo = new MessageTo(userInformation.getUuid(), friend.getUuid(), message,
+                                Date.valueOf(LocalDate.now()), false);
+                        message_orm.create(messageTo);
+
+                        dos.writeInt(1);
+                        dos.writeUTF("you");
+                        dos.writeUTF(messageTo.getMessage_date().toString());
+                        dos.writeUTF(messageTo.getMessage());
+                        dos.flush();
+
+
                         if (reciver != null) {
-
                             try {
                                 OutputStream outRecive = reciver.getOutputStream();
                                 DataOutputStream dosRecive = new DataOutputStream(outRecive);
                                 dosRecive.writeInt(1);
-                                dosRecive.writeUTF(userInformation.getPseudo());
-                                dosRecive.writeUTF(LocalDateTime.now().toString());
-                                dosRecive.writeUTF(data);
+                                dosRecive.writeUTF(userInformation.getPseudo() + " - " + userInformation.getUuid());
+                                dosRecive.writeUTF(messageTo.getMessage_date().toString());
+                                dosRecive.writeUTF(messageTo.getMessage());
                                 dosRecive.flush();
                                 isTrue = true;
                             } catch (FileNotFoundException e) {
@@ -182,14 +214,10 @@ public class TraitementServerThread implements Runnable {
                                 e.printStackTrace();
                             }
 
-                        } else {
-                            dos.writeInt(2);
-                            dos.writeUTF("SERVER:SORRY THE DESTINATIOn NOT FOUND");
-                            dos.flush();
                         }
                     } else {
-
-                        System.out.printf(" BROADCAST A MESSAGE TO THE SERVER");
+                        
+                        ServerLogs.printLog("BROADCAST A MESSAGE TO THE SERVER");
                         Set<Entry<UserInformation, Socket>> users = this.socketServer.getCon_table().entrySet();
                         for (Entry<UserInformation, Socket> entry : users) {
                             if (entry.getKey().compareTo(userInformation) != 0) {
@@ -215,7 +243,9 @@ public class TraitementServerThread implements Runnable {
 
             }
 
-        } catch (FileNotFoundException e) {
+        } catch (
+
+        FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

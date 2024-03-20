@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.sql.Date;
 
 
-public class MessageTo {
+public class MessageTo implements Serializable {
 
     private String uuid_reciver;
     private String uuid_sender;

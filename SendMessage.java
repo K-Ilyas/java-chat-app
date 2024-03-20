@@ -11,36 +11,37 @@ public class SendMessage implements Runnable {
     UserInformation user = null;
     DataOutputStream out = null;
     ObjectOutputStream bos = null;
+    UserInformation friend = null;
 
-    public SendMessage(DataOutputStream out, ObjectOutputStream bos, UserInformation user) {
+    Scanner scanf = null;
+
+    public SendMessage(DataOutputStream out, ObjectOutputStream bos, UserInformation user, UserInformation friend, Scanner scanf) {
         this.user = user;
         this.out = out;
         this.bos = bos;
+        this.friend = friend;
+        this.scanf = scanf;
     }
 
     public void run() {
-        String pseudo = "", name = "";
-        Scanner sc = new Scanner(System.in);
+        String  message = "";
         try {
             do {
-                pseudo = sc.nextLine();
-                out.writeUTF(pseudo.toString());
-                if (!pseudo.toUpperCase().equals("N")) {
-                    System.out.println("Enter your message ===>> ");
-                    name = sc.nextLine();
-                    out.writeUTF(name.toString());
-                }
+                
+                System.out.println("Enter your message ===>> ");
+                
+                message = scanf.nextLine();
+                out.writeUTF(message.toString());
                 out.flush();
+                bos.writeObject(friend);
+                bos.flush();
                 bos.writeObject(user);
                 bos.flush();
-                bos.flush();
-
-                API.printMessage("\n Enter the user pseudo or nothing to brodcast ===>> ");
 
 
-            } while (!pseudo.toUpperCase().equals("N"));
+            } while (!message.toUpperCase().equals("N"));
 
-            sc.close();
+            scanf.close();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

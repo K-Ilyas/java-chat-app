@@ -4,13 +4,17 @@ import java.sql.SQLException;
 
 public class MySQLConnectSingleton {
 
-    private String url = "jdbc:mysql://localhost:3306/";
-    private String user = "root";
-    private String passwd = "Ilyas.99";
+    private String url = "";
+    private String user = "";
+    private String passwd = "";
     private static Connection connect;
 
     private MySQLConnectSingleton() {
         try {
+            this.url = AppConfig.getProperty("DATABASE_URL");
+            this.user = AppConfig.getProperty("DATABASE_USERNAME");
+            this.passwd = AppConfig.getProperty("DATABASE_PASSWORD");
+
             Class.forName("com.mysql.cj.jdbc.Driver");
             connect = DriverManager.getConnection(url, user, passwd);
         } catch (SQLException e) {
@@ -29,7 +33,6 @@ public class MySQLConnectSingleton {
                     System.out.println("INSTANCIATION DE LA CONNEXION SQL ! ");
                 }
             }
-
         } else {
             System.out.println("CONNEXION SQL EXISTANTE ! ");
         }
