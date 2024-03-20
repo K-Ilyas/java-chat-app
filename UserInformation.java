@@ -12,7 +12,7 @@ public class UserInformation implements Comparable<UserInformation>, Serializabl
 
     public UserInformation() {
         this.uuid = "";
-        this.pseudo = "";
+        this.pseudo = ""; 
         this.password = "";
         this.email = "";
         this.image = "";
