@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
+import java.util.LinkedList;
 
 public class UserDAO extends DAO<UserInformation> {
 
@@ -46,7 +47,6 @@ public class UserDAO extends DAO<UserInformation> {
     @Override
     public boolean delete(UserInformation obj) {
         PreparedStatement statement = null;
-
         try {
             // Check if user exists before deleting
             if (!userExists(obj.getUuid())) {
@@ -165,6 +165,27 @@ public class UserDAO extends DAO<UserInformation> {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public LinkedList<UserInformation> findAll(String uuid) {
+        LinkedList<UserInformation> users = new LinkedList<UserInformation>();
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM user WHERE user_uuid <>" + uuid);
+            while (result.next()) {
+                users.add(new UserInformation(
+                        result.getString("user_uuid"),
+                        result.getString("username"),
+                        result.getString("email"),
+                        result.getString("hashpassword"),
+                        result.getString("image"),
+                        result.getBoolean("isadmin")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
 }
