@@ -88,9 +88,7 @@ public class SocketServer {
     public boolean addUser(UserInformation user, Socket soc) {
         if (!isUserExist(user)) {
             this.con_table.put(user, soc);
-
             System.out.println(" NEW SING IN :  " + "[" + user + "] \t" + soc);
-
             return true;
         }
         return false;
