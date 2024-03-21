@@ -2,5 +2,5 @@
 
 
 ## clean code
-
-rm *.class
+javac --module-path "/home/guetti/IHM/java-chat-app/lib/" --add-modules javafx.controls,javafx.fxml $*
+java -Dprism.verbose=true  --module-path "/home/guetti/IHM/java-chat-app/lib/" --add-modules javafx.controls,javafx.fxml $*

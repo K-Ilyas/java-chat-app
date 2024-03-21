@@ -29,7 +29,8 @@ public class UserDAO extends DAO<UserInformation> {
             statement.setString(3, obj.getEmail());
             // Hash the password before storing it
             String hashedPassword = hashPassword(obj.getPassword());
-            statement.setString(4, hashedPassword);
+            // statement.setString(4, hashedPassword);
+            statement.setString(4, obj.getPassword());
             statement.setString(5, obj.getImage());
             statement.setBoolean(6, obj.getIsadmin());
 
@@ -148,6 +149,22 @@ public class UserDAO extends DAO<UserInformation> {
         return true;
     }
 
+
+    public boolean userExistsByName(String name) {
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery(String.format("SELECT * FROM user WHERE username LIKE '%s'", name));
+            if (result.first())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
     // a function to hash a password
     public static String hashPassword(String password) {
         try {
@@ -200,19 +217,42 @@ public class UserDAO extends DAO<UserInformation> {
         return user;
     }
 
-    public LinkedList<UserInformation> findAll(String uuid) {
+    public LinkedList<UserInformation> findAll(String uuid_username) {
         LinkedList<UserInformation> users = new LinkedList<UserInformation>();
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery(String.format("SELECT * FROM user WHERE uuid_user <> '%s'", uuid));
+                    .executeQuery(String.format("SELECT * FROM user WHERE uuid_user <> '%s' or username <> '%s'",
+                     uuid_username,uuid_username));
             while (result.next()) {
                 users.add(new UserInformation(
                         result.getString("uuid_user"),
                         result.getString("username"),
-                        result.getString("email"),
                         result.getString("hashpasword"),
+                        result.getString("email"),
+                        result.getString("image"),
+                        result.getBoolean("isadmin")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    public LinkedList<UserInformation> getContacts() {
+        LinkedList<UserInformation> users = new LinkedList<UserInformation>();
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery(String.format("SELECT * FROM user"));
+            while (result.next()) {
+                users.add(new UserInformation(
+                        result.getString("uuid_user"),
+                        result.getString("username"),
+                        result.getString("hashpasword"),
+                        result.getString("email"),
                         result.getString("image"),
                         result.getBoolean("isadmin")));
             }

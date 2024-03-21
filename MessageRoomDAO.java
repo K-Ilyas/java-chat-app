@@ -106,19 +106,24 @@ public class MessageRoomDAO extends DAO<Messageroom> {
 
 
   //find all message in a room
-  public LinkedList<String> findAllMessageInRoom(String uuid_room){
-    LinkedList<String> list = new LinkedList<String>();
+  public LinkedList<Messageroom> findAllMessageInRoom(String uuid_room){
+    LinkedList<Messageroom> list = new LinkedList<Messageroom>();
     try {
       ResultSet result = this.connect.createStatement(
           ResultSet.TYPE_SCROLL_INSENSITIVE,
           ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT message FROM messageroom WHERE  uuid_room = " + uuid_room);
       while (result.next())
-        list.add(result.getString("message"));
+        list.add(new Messageroom(
+          result.getInt("message_id"),
+          result.getString("uuid_room"),
+          result.getString("uuid_user"),
+          result.getString("message"),
+          result.getDate("date"),
+          result.getBoolean("isDeleted")
+          ));
     } catch (SQLException e) {
       e.printStackTrace();
     }
     return list;
-  
   }
-  
 }
