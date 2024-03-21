@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -187,8 +188,9 @@ public class TraitementServerThread implements Runnable {
 
                         Socket reciver = this.socketServer.findUserSocket(friend.getUuid());
 
+
                         MessageTo messageTo = new MessageTo(userInformation.getUuid(), friend.getUuid(), message,
-                                Date.valueOf(LocalDate.now()), false);
+                        LocalDateTime.now().toString(), false);
                         message_orm.create(messageTo);
 
                         dos.writeInt(1);

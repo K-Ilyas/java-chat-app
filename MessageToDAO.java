@@ -26,7 +26,7 @@ public class MessageToDAO extends DAO<MessageTo> {
             statement.setString(1, obj.getUuid_sender());
             statement.setString(2, obj.getUuid_reciver());
             statement.setString(3, obj.getMessage());
-            statement.setDate(4, obj.getMessage_date());
+            statement.setString(4, obj.getMessage_date());
             statement.setBoolean(5, obj.getIsDelated());
             statement.executeUpdate();
 
@@ -108,7 +108,7 @@ public class MessageToDAO extends DAO<MessageTo> {
                         result.getString("uuid_sender"),
                         result.getString("uuid_reciver"),
                         result.getString("message"),
-                        result.getDate("message_date"),
+                        result.getString("message_date"),
                         result.getBoolean("isdelated")));
             }
         } catch (SQLException e) {

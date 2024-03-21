@@ -1,13 +1,15 @@
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.print.attribute.standard.DateTimeAtCompleted;
+
 
 public class MessageTo implements Serializable {
 
     private String uuid_reciver;
     private String uuid_sender;
     private String message;
-    private Date message_date;
+    private String message_date;
     private boolean is_deleted;
 
     public MessageTo() {
@@ -18,7 +20,7 @@ public class MessageTo implements Serializable {
         this.is_deleted = false;
     }
 
-    public MessageTo(String uuid_sender, String uuid_reciver, String message, Date message_date, boolean isdelated ){
+    public MessageTo(String uuid_sender, String uuid_reciver, String message, String message_date, boolean isdelated ){
         this.uuid_reciver = uuid_reciver;
         this.uuid_sender = uuid_sender;
         this.message = message;
@@ -30,7 +32,7 @@ public class MessageTo implements Serializable {
         return message;
     }
 
-    public Date getMessage_date() {
+    public String getMessage_date() {
         return message_date;
     }
 
@@ -55,7 +57,7 @@ public class MessageTo implements Serializable {
         this.message = message;
     }
 
-    public void setMessage_date(Date message_date) {
+    public void setMessage_date(String message_date) {
         this.message_date = message_date;
     }
 

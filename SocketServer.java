@@ -34,13 +34,8 @@ public class SocketServer {
         }
     }
 
-
-  
-
-
-
     public boolean isLogedInOrInit(UserInformation user, Socket soc) {
-    
+
         if (!this.con_table.isEmpty()) {
             Enumeration<UserInformation> list = this.con_table.keys();
             while (list.hasMoreElements()) {
@@ -61,18 +56,25 @@ public class SocketServer {
             Set<Entry<UserInformation, Socket>> list = this.con_table.entrySet();
             Iterator<Entry<UserInformation, Socket>> iterator = list.iterator();
 
-
             while (iterator.hasNext()) {
+
+
                 Entry<UserInformation, Socket> user = iterator.next();
-                System.out.println(String.format("'%s'",user.getKey().getUuid()));
-                if (String.format("'%s'",user.getKey().getUuid()).equals(String.format("'%s'", uuid)))
+                System.out.println(String.format("'%s'", user.getKey().getUuid()));
+                if (String.format("'%s'", user.getKey().getUuid()).equals(String.format("'%s'", uuid)))
+                {
+                    System.out.println(" ****************************** found");
                     return user.getValue();
+
+                }
             }
         }
         return null;
     }
 
     public boolean isUserExist(UserInformation user) {
+
+       
 
         if (!this.con_table.isEmpty()) {
 
@@ -102,12 +104,13 @@ public class SocketServer {
 
         if (!this.con_table.isEmpty()) {
 
-            Enumeration<UserInformation> list = this.con_table.keys();
+            Iterator<UserInformation> iterator = this.con_table.keySet().iterator();
 
-            while (list.hasMoreElements()) {
-
-                if (list.nextElement().compareTo(user) == 0) {
-                    this.con_table.remove(user);
+            while (iterator.hasNext()) {
+                UserInformation currentUser = iterator.next();
+                if (currentUser.compareTo(user) == 0) {
+                    System.out.println("-------------------- not good ----------------------");
+                    iterator.remove();
                     return true;
                 }
             }
@@ -134,7 +137,7 @@ public class SocketServer {
             }
 
         } else
-        ServerLogs.printLog("THE SERER IS NOT CONNECTED !!!");
+            ServerLogs.printLog("THE SERER IS NOT CONNECTED !!!");
 
     }
 
@@ -145,7 +148,6 @@ public class SocketServer {
     public Connection getConnect() {
         return connect;
     }
-
 
     public static void main(String[] args) {
         SocketServer server = new SocketServer();
