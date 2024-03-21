@@ -85,8 +85,8 @@ functional as well as aesthetically plesent when it comes to the UI,
 
 
 # class diagram
+![uml_diagram](https://github.com/K-Ilyas/java-chat-app/assets/61426347/52cd08c3-837f-4a8e-82b8-4cd5a3050420)
 
-![JAVA_CHAT_CLASS_UML drawio](https://github.com/K-Ilyas/java-chat-app/assets/61426347/94c3bd5f-b678-4483-802a-e755005852f6)
 
 # Use Case 
 
