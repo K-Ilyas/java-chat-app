@@ -33,9 +33,9 @@ This is a simple chat application built using Java and JavaFX.
 Contributions are welcome! Please fork the repository and submit a pull request. -->
 # Team
 
+* Boussoualef Mohamed Amine
 * Ahmed Guetti
 * Kritet Ilyas
-* Boussoualef Mohamed Amine
 ## Our application core idea
 ### General vision 
 
