@@ -119,7 +119,7 @@ automatically.
 ![flowchart](https://github.com/K-Ilyas/java-chat-app/assets/61426347/fde1d7df-2018-4128-bf17-8bd3de934d51)
 
 # MCD
-![mcd_workbeanch](https://github.com/K-Ilyas/java-chat-app/assets/61426347/55b95d86-b583-4f2e-a6b1-90b3aa19c897)
+<img width="638" alt="mcd" src="https://github.com/K-Ilyas/java-chat-app/assets/124268899/21a63f1f-4d1b-48cc-98d5-41919c3b99c7">
 
 # mockup
 
