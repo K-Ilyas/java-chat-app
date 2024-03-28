@@ -94,7 +94,6 @@ public class MessageToDAO extends DAO<MessageTo> {
 
         LinkedList<MessageTo> messages = new LinkedList<MessageTo>();
 
-
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,

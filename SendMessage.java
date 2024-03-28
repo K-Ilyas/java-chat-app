@@ -15,6 +15,13 @@ public class SendMessage implements Runnable {
 
     Scanner scanf = null;
 
+    public void setFriend(UserInformation friend) {
+        this.friend = friend;
+    }
+
+    public void setUser(UserInformation user) {
+        this.user = user;
+    }
     public SendMessage(DataOutputStream out, ObjectOutputStream bos, UserInformation user, UserInformation friend, Scanner scanf) {
         this.user = user;
         this.out = out;
@@ -29,7 +36,6 @@ public class SendMessage implements Runnable {
             do {
                 
                 System.out.println("Enter your message ===>> ");
-                
                 message = scanf.nextLine();
                 out.writeUTF(message.toString());
                 out.flush();

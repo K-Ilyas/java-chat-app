@@ -12,7 +12,7 @@ public class UserInformation implements Comparable<UserInformation>, Serializabl
 
     public UserInformation() {
         this.uuid = "";
-        this.pseudo = ""; 
+        this.pseudo = "";
         this.password = "";
         this.email = "";
         this.image = "";
@@ -93,5 +93,17 @@ public class UserInformation implements Comparable<UserInformation>, Serializabl
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInformation{" +
+                "uuid='" + uuid + '\'' +
+                ", pseudo='" + pseudo + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", image='" + image + '\'' +
+                ", isadmin=" + isadmin +
+                '}';
     }
 }

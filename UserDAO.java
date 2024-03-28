@@ -22,30 +22,36 @@ public class UserDAO extends DAO<UserInformation> {
 
         String uuid = UUID.randomUUID().toString();
         try {
-            String query = "INSERT INTO user (uuid_user, username, email, hashpasword, image, isadmin) VALUES (?, ?, ?, ?, ?, ?)";
-            statement = this.connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, uuid);
-            statement.setString(2, obj.getPseudo());
-            statement.setString(3, obj.getEmail());
-            // Hash the password before storing it
-            String hashedPassword = hashPassword(obj.getPassword());
-            statement.setString(4, hashedPassword);
-            statement.setString(5, obj.getImage());
-            statement.setBoolean(6, obj.getIsadmin());
 
-            int affectedRows = statement.executeUpdate();
-
-            if (affectedRows != 0) {
-                System.out.println("User created successfully.");
-                UserInformation new_user = this.find(uuid);
-                obj.setEmail(new_user.getEmail());
-                obj.setIsadmin(new_user.getIsadmin());
-                obj.setPseudo(new_user.getPseudo());
-                obj.setUuid(new_user.getUuid());
-                obj.setImage(new_user.getImage());
+            UserInformation user = this.find(obj.getPseudo());
+            if (user == null) {
                 
+                String query = "INSERT INTO user (uuid_user, username, email, hashpasword, image, isadmin) VALUES (?, ?, ?, ?, ?, ?)";
+                statement = this.connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                statement.setString(1, uuid);
+                statement.setString(2, obj.getPseudo());
+                statement.setString(3, obj.getEmail());
+                // Hash the password before storing it
+                String hashedPassword = hashPassword(obj.getPassword());
+                statement.setString(4, hashedPassword);
+                statement.setString(5, obj.getImage());
+                statement.setBoolean(6, obj.getIsadmin());
+                int affectedRows = statement.executeUpdate();
+
+                if (affectedRows != 0) {
+                    System.out.println("User created successfully.");
+                    UserInformation new_user = this.find(uuid);
+                    obj.setEmail(new_user.getEmail());
+                    obj.setIsadmin(new_user.getIsadmin());
+                    obj.setPseudo(new_user.getPseudo());
+                    obj.setUuid(new_user.getUuid());
+                    obj.setImage(new_user.getImage());
+                }
+            } else {
+                System.out.println("User already exists.");
+                obj = null;
+                return false;
             }
-            
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -187,8 +193,8 @@ public class UserDAO extends DAO<UserInformation> {
                 user = new UserInformation(
                         result.getString("uuid_user"),
                         result.getString("username"),
-                        result.getString("email"),
                         result.getString("hashpasword"),
+                        result.getString("email"),
                         result.getString("image"),
                         result.getBoolean("isadmin"));
 
@@ -211,8 +217,8 @@ public class UserDAO extends DAO<UserInformation> {
                 users.add(new UserInformation(
                         result.getString("uuid_user"),
                         result.getString("username"),
-                        result.getString("email"),
                         result.getString("hashpasword"),
+                        result.getString("email"),
                         result.getString("image"),
                         result.getBoolean("isadmin")));
             }

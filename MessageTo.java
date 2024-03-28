@@ -3,7 +3,6 @@ import java.sql.Date;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 
-
 public class MessageTo implements Serializable {
 
     private String uuid_reciver;
@@ -20,7 +19,7 @@ public class MessageTo implements Serializable {
         this.is_deleted = false;
     }
 
-    public MessageTo(String uuid_sender, String uuid_reciver, String message, String message_date, boolean isdelated ){
+    public MessageTo(String uuid_sender, String uuid_reciver, String message, String message_date, boolean isdelated) {
         this.uuid_reciver = uuid_reciver;
         this.uuid_sender = uuid_sender;
         this.message = message;
@@ -44,11 +43,10 @@ public class MessageTo implements Serializable {
         return uuid_sender;
     }
 
-    public boolean getIsDelated(){
+    public boolean getIsDelated() {
         return is_deleted;
     }
 
-    
     public void setIs_deleted(boolean is_deleted) {
         this.is_deleted = is_deleted;
     }
@@ -67,5 +65,16 @@ public class MessageTo implements Serializable {
 
     public void setUuid_sender(String uuid_sender) {
         this.uuid_sender = uuid_sender;
+    }
+
+    @Override
+    public String toString() {
+        return "MessageTo{" +
+                "uuid_reciver='" + uuid_reciver + '\'' +
+                ", uuid_sender='" + uuid_sender + '\'' +
+                ", message='" + message + '\'' +
+                ", message_date=" + message_date +
+                ", is_deleted=" + is_deleted +
+                '}';
     }
 }
