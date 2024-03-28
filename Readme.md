@@ -85,8 +85,8 @@ functional as well as aesthetically plesent when it comes to the UI,
 
 
 # class diagram
+![uml_diagram](https://github.com/K-Ilyas/java-chat-app/assets/61426347/52cd08c3-837f-4a8e-82b8-4cd5a3050420)
 
-![JAVA_CHAT_CLASS_UML drawio](https://github.com/K-Ilyas/java-chat-app/assets/61426347/94c3bd5f-b678-4483-802a-e755005852f6)
 
 # Use Case 
 
@@ -115,6 +115,8 @@ automatically.
 
 ![executor](https://github.com/K-Ilyas/java-chat-app/assets/61426347/37136685-5e66-4554-9caa-a43e98a690af)
 
+# flowchart 
+![flowchart](https://github.com/K-Ilyas/java-chat-app/assets/61426347/fde1d7df-2018-4128-bf17-8bd3de934d51)
 
 # MCD
 ![mcd_workbeanch](https://github.com/K-Ilyas/java-chat-app/assets/61426347/55b95d86-b583-4f2e-a6b1-90b3aa19c897)
